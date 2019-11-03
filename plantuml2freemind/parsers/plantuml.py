@@ -47,8 +47,10 @@ def parse_line_org_mode(line: str, side: str) -> MindmapTreeType:
     nesting_level = left_part.count('*')
     style = 'fork' if left_part.endswith('_') else 'bubble'
 
-    match = re.search('\[(#[a-f0-9]{6})\]', left_part)
-    color = match.group(1) if match else '#000000'
+    match = re.search('\[(#[a-f0-9]{6})?\|?([0-9]*)\]', left_part)
+
+    color = match.group(1) if match else None
+    width = match.group(2) if match else None
 
     node_data: MindmapTreeType = cast(
         MindmapTreeType,
@@ -59,7 +61,8 @@ def parse_line_org_mode(line: str, side: str) -> MindmapTreeType:
             'side': side,
             'style': style,
             'children': [],
-            'color': color
+            'color': color,
+            'width': width
         },
     )
     return node_data

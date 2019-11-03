@@ -32,14 +32,17 @@ def convert_tree_into_mm(root_node_data) -> str:
 
 def create_xml_node(parent_xml_node, node_data, side: Optional[str]):
     xml_node = ET.SubElement(parent_xml_node, 'node')
+    xml_edge = ET.SubElement(xml_node, 'edge')
     xml_node.set('TEXT', node_data['text'])
     if node_data['style'] is not None:
         xml_node.set('STYLE', node_data['style'])
     if node_data['link'] is not None:
         xml_node.set('LINK', node_data['link'])
-    if node_data['edge_color'] is not None:
-        xml_edge = ET.SubElement(xml_node, 'edge')   
+    if node_data['color'] is not None:  
         xml_edge.set('COLOR', node_data['color'])
+    if node_data['width'] is not None:  
+        xml_edge.set('WIDTH', node_data['width'])
+    
 
     xml_node.set('CREATED', now)
     xml_node.set('MODIFIED', now)
