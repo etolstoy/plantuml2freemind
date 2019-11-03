@@ -30,9 +30,10 @@ class ConvertCommand(Command):
                 style='error',
             )
             return
-
-        # TODO: check input_path exists
-        # TODO: check output_path doesn't exist else offer overwriting
+            
+        if os.path.isfile(output_path):
+            if not self.confirm('Output path \'{0}\' is not empty. Do you want to overwrite it?'.format(output_path), default=True):
+                return
 
         _, input_format = os.path.splitext(input_path)
         if not self.confirm('Input file format is {0}?'.format(input_format), default=True):
