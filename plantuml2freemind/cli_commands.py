@@ -21,6 +21,16 @@ class ConvertCommand(Command):
     def handle(self) -> None:
         input_path = self.argument('input-path')
         output_path = self.argument('output-path')
+
+        if not os.path.isfile(input_path):
+            self.line_error(
+                'Input path \'{0}\' does not exist'.format(
+                    input_path
+                ),
+                style='error',
+            )
+            return
+
         # TODO: check input_path exists
         # TODO: check output_path doesn't exist else offer overwriting
 
