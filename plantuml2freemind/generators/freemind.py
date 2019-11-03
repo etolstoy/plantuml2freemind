@@ -37,8 +37,9 @@ def create_xml_node(parent_xml_node, node_data, side: Optional[str]):
         xml_node.set('STYLE', node_data['style'])
     if node_data['link'] is not None:
         xml_node.set('LINK', node_data['link'])
-    if node_data['color'] is not None:
-        xml_node.set('COLOR', node_data['color'])
+    if node_data['edge_color'] is not None:
+        xml_edge = ET.SubElement(xml_node, 'edge')   
+        xml_edge.set('COLOR', node_data['color'])
 
     xml_node.set('CREATED', now)
     xml_node.set('MODIFIED', now)
