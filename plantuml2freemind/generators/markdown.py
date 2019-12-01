@@ -13,7 +13,7 @@ def convert_tree_into_md(root_node_data) -> str:
     result = create_md_node(root_node_data, level)
     result += "\n"
     level += 1
-    for branch_name in ['left', 'right']:
+    for branch_name in ['right', 'left']:
         branch = root_node_data[branch_name]
         for node_data in branch:
             result += create_md_node_tree(node_data, level, side=branch_name)
