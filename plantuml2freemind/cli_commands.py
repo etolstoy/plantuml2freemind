@@ -16,11 +16,13 @@ class ConvertCommand(Command):
     convert
         {input-path : Path to source file for converting, e.g. <info>teamlead.puml</info>}
         {output-path : Path to output file for converting, e.g. <info>teamlead.mm</info>}
+        {skip-check? : Skips all checks, unsafe mode for CI}
     """
 
     def handle(self) -> None:
         input_path = self.argument('input-path')
         output_path = self.argument('output-path')
+        skip_check = self.argument('skip-check') if self.argument('skip-check') else False
 
         if not os.path.isfile(input_path):
             self.line_error(
@@ -31,12 +33,12 @@ class ConvertCommand(Command):
             )
             return
             
-        if os.path.isfile(output_path):
+        if os.path.isfile(output_path) and skip_check == False:
             if not self.confirm('Output path \'{0}\' is not empty. Do you want to overwrite it?'.format(output_path), default=True):
                 return
 
         _, input_format = os.path.splitext(input_path)
-        if not self.confirm('Input file format is {0}?'.format(input_format), default=True):
+        if skip_check == False and not self.confirm('Input file format is {0}?'.format(input_format), default=True):
             input_format = self.choice(
                 'Choose on of supported formats',
                 choices=SUPPORTED_INPUT_FORMATS,
@@ -53,7 +55,7 @@ class ConvertCommand(Command):
             return
 
         _, output_format = os.path.splitext(output_path)
-        if not self.confirm('Output file format is {0}?'.format(output_format), default=True):
+        if skip_check == False and not self.confirm('Output file format is {0}?'.format(output_format), default=True):
             output_format = self.choice(
                 'Choose on of supported formats',
                 choices=SUPPORTED_OUTPUT_FORMATS,
