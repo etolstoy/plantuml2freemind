@@ -1,7 +1,6 @@
-from typing import Any, Container, Dict, List, Optional
+from typing import Any, Container, Dict, List, Optional, NewType
 
 # TODO: add real type: attrs is a good choice
-MindmapTreeType = NewType('MindmapTreeType', Dict[str, Any])
 MarkdownTreeType = NewType('MarkdownTreeType', Dict[str, Any])
 
 from attr import asdict, attrib, attrs
