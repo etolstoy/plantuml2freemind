@@ -1,8 +1,6 @@
-from typing import Optional
+from typing import Optional, Any
 
-from plantuml2freemind.custom_types import MarkdownTreeType
-
-def entry(tree: MarkdownTreeType) -> str:
+def entry(tree: Any) -> str:
     return convert_tree_into_md(
         root_node_data=tree,
     )

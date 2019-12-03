@@ -1,8 +1,5 @@
 from typing import Any, Container, Dict, List, Optional, NewType
 
-# TODO: add real type: attrs is a good choice
-MarkdownTreeType = NewType('MarkdownTreeType', Dict[str, Any])
-
 from attr import asdict, attrib, attrs
 from attr.validators import in_, instance_of, optional
 
